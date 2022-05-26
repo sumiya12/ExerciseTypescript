@@ -5,7 +5,9 @@ import moment from "moment";
 function AddUsers() {
   //   const [user, setUser] = useState<User>();
   const { users, setUsers } = useUser();
-  useEffect(() => {}, [users]);
+  //   useEffect(() => {
+  //     setUsers([...users, users]);
+  //   }, [users]);
   function handler() {
     fetch("https://randomuser.me/api")
       .then((res) => res.json())
