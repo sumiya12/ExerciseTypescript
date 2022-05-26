@@ -17,7 +17,7 @@ function Header(): JSX.Element {
       <Nav defaultActiveKey="/home" as="ul">
         <Nav.Item as="li">
           <button style={style.button}>
-            <Nav.Link href="/home" style={style.button.navlink}>
+            <Nav.Link href="/Main" style={style.button.navlink}>
               Home
             </Nav.Link>
           </button>
@@ -31,7 +31,7 @@ function Header(): JSX.Element {
         </Nav.Item>
         <Nav.Item as="li">
           <button style={style.button}>
-            <Nav.Link href="/home" style={style.button.navlink}>
+            <Nav.Link href="/AddUsers" style={style.button.navlink}>
               Add Users
             </Nav.Link>
           </button>

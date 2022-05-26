@@ -7,15 +7,16 @@ export interface User {
   email: string | null;
   gender: string;
   id: { name: string; value: string };
-  loaction: {
+  location: {
     city: string;
     coordinates: { latitude: string; longitude: string };
     country: string;
     postcode: number;
     state: string;
+    street: { name: string; number: number };
+    timezone: { desription: string; offset: string };
   };
-  street: { name: string; number: number };
-  timezone: { desription: string; offset: string };
+
   login: {
     md5: string;
     password: string;
@@ -34,6 +35,14 @@ export interface User {
     date: string;
   };
 }
+export type IsSelectType =
+  | "name"
+  | "address"
+  | "calendar"
+  | "email"
+  | "lock"
+  | "phone"
+  | "undefined";
 
 export type Props = {
   user: User | null;

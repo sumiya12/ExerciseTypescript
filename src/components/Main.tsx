@@ -1,50 +1,53 @@
 // import { useEffect, useState } from "react";
 import FetchHook from "../API/FetchHook";
 import Header from "./Header";
-import { User } from "../types/type";
+import { User, IsSelectType } from "../types/type";
 import { useEffect, useState } from "react";
+// import { title } from "process";
+import moment from "moment";
 
 function Main(): JSX.Element {
   const data = FetchHook("https://randomuser.me/api");
-  const [image, setImage] = useState<any[]>();
-  const [buttonAIsHovering, buttonAHoverProps] = useHover();
-  const [buttonBIsHovering, buttonBHoverProps] = useHover();
-  const [buttonCIsHovering, buttonCHoverProps] = useHover();
-  const [buttonDIsHovering, buttonDHoverProps] = useHover();
-  const [buttonEIsHovering, buttonEHoverProps] = useHover();
-  function davidon(e: any): any {
-    e.target.style.background = "green";
+  //   console.log(data);
+
+  const [isSelect, setselect] = useState<IsSelectType>("name");
+  const buttons: Array<IsSelectType> = [
+    "name",
+    "address",
+    "calendar",
+    "email",
+    "lock",
+    "phone",
+  ];
+
+  let name: any = `${data?.name?.first}  ${data?.name?.last}`;
+  let address: any = `${data?.location.street.name} ${data?.location.street.number}`;
+
+  let changed: any;
+  let title: string = "";
+  if (isSelect == "name") {
+    changed = name;
+    title = "Hi my name is";
+  } else if (isSelect == "address") {
+    changed = address;
+    title = "Hi my address is";
+  } else if (isSelect == "calendar") {
+    changed = moment(data?.dob.date).format("YYYY-MM-DD");
+    title = "Hi my birthday is";
+  } else if (isSelect == "email") {
+    changed = data?.email;
+    title = "Hi my email is";
+  } else if (isSelect == "lock") {
+    changed = data?.login.password;
+    title = "Hi my password is";
+  } else {
+    changed = data?.phone;
+    title = "Hi my phone is";
   }
-  function davidoff(e: any): any {
-    e.target.style.background = "white";
-  }
-  function useHover(): (
-    | boolean
-    | {
-        onMouseEnter: () => void;
-        onMouseLeave: () => void;
-      }
-  )[] {
-    const [hovering, setHovering] = useState(false);
-    const onHoverProps = {
-      onMouseEnter: () => setHovering(true),
-      onMouseLeave: () => setHovering(false),
-    };
-    return [hovering, onHoverProps];
-  }
-  useEffect(() => {
-    fetch("data.json")
-      .then((res) => res.json())
-      .then((res) => {
-        setImage(res.data);
-        console.log(res.data);
-      });
-  }, []);
   const style = {
     textAlign: "center" as "center",
     justifyContent: "center",
     alignItems: "center",
-    // height: "50vh",
     margin: "auto",
     image: {
       borderRadius: "50%",
@@ -71,59 +74,40 @@ function Main(): JSX.Element {
     },
     logo: {
       display: "flex",
-      // marginLeft:"10px",
       textAlign: "center" as "center",
       margin: "auto",
+      justifyContent: "center",
     },
     logoImage: { width: "50px", height: "50px", border: "none" },
+    bordeButton: { border: "none", padding: "10px", margin: "10px" },
   };
   return (
     <div>
-      <Header />
       <div style={style}>
         <hr style={style.hr} />
         <img src={data?.picture.large} alt="Picture" style={style.image} />
-        <div>Hi, My name is</div>
+        <div>{title}</div>
       </div>
+
       <div style={style.name}>
-        <div>{data?.name.first}</div>
-        <div style={style.inside}>{data?.name.last}</div>
+        <div>{changed}</div>
       </div>
 
       <div style={style.logo}>
-      <div>
-        {buttonAIsHovering
-          ? "button A hovering"
-          : buttonBIsHovering
-          ? "button B hovering"
-          : buttonCIsHovering
-          ? "button C hovering"
-          : buttonDIsHovering
-          ? "button D hovering"
-          : "button E hovering"}
-      </div>
-      {/* <button {...buttonAHoverProps}>A</button>
-      <button {...buttonBHoverProps}>B</button>
-      <button {...buttonCHoverProps}>C</button>
-      <button {...buttonDHoverProps}>D</button>
-      <button {...buttonEHoverProps}>E</button> */}
-        {image?.map((each: any, i: number) => {
+        {buttons?.map((each: any, i: number) => {
           return (
-            <button onMouseOver={davidon} onMouseOut={davidoff}>
-              <img
-                src={each.img}
-                key={i}
-                style={style.logoImage}
-                onMouseOver={davidon}
-                onMouseOut={davidoff}
-              />
+            <button
+              style={style.bordeButton}
+              onMouseOver={() => setselect(each as IsSelectType)}
+              key={i}
+              title={title}
+              name={changed}
+            >
+              <img src={`/pic/${each}.jpg`} style={style.logoImage} />
             </button>
           );
         })}
       </div>
-      {/* <div>{data?.dob.date}</div>
-      <div>{data?.email}</div>
-      <div>{data?.gender}</div> */}
     </div>
   );
 }
