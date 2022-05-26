@@ -10,7 +10,7 @@ function Main(): JSX.Element {
   const data = FetchHook("https://randomuser.me/api");
   //   console.log(data);
 
-  const [isSelect, setselect] = useState<IsSelectType>("name");
+  const [isSelect, setselect] = useState<IsSelectType>("address");
   const buttons: Array<IsSelectType> = [
     "name",
     "address",

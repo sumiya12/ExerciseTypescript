@@ -1,5 +1,6 @@
 // import exp from "constants";
 import { type } from "os";
+import React from "react";
 
 export interface User {
   cell: string;
@@ -16,7 +17,6 @@ export interface User {
     street: { name: string; number: number };
     timezone: { desription: string; offset: string };
   };
-
   login: {
     md5: string;
     password: string;
@@ -44,6 +44,10 @@ export type IsSelectType =
   | "phone"
   | "undefined";
 
+export type UserContextType = {
+  users: User[];
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+};
 export type Props = {
   user: User | null;
 };
