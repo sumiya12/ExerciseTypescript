@@ -5,7 +5,7 @@ import React from "react";
 export interface User {
   cell: string;
   dob: { age: number; date: string };
-  email: string | null;
+  email: string;
   gender: string;
   id: { name: string; value: string };
   location: {
@@ -15,7 +15,7 @@ export interface User {
     postcode: number;
     state: string;
     street: { name: string; number: number };
-    timezone: { desription: string; offset: string };
+    timezone: { description: string; offset: string };
   };
   login: {
     md5: string;
@@ -30,7 +30,7 @@ export interface User {
   nat: string;
   phone: string;
   picture: { large: string; medium: string; thumbnail: string };
-  register: {
+  registered: {
     age: number;
     date: string;
   };

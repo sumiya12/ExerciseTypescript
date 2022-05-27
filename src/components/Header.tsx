@@ -9,7 +9,7 @@ function Header(): JSX.Element {
       margin: "10px",
       borderRadius: "10px",
       backgroundColor: "black",
-      navlink: { color: "white" },
+      navlink: { color: "white", fontSize: "20px" },
     },
   };
   return (
@@ -24,7 +24,7 @@ function Header(): JSX.Element {
         </Nav.Item>
         <Nav.Item as="li">
           <button style={style.button}>
-            <Nav.Link href="/home" style={style.button.navlink}>
+            <Nav.Link href="/UsersLocal" style={style.button.navlink}>
               Users
             </Nav.Link>
           </button>
@@ -38,7 +38,7 @@ function Header(): JSX.Element {
         </Nav.Item>
         <Nav.Item as="li">
           <button style={style.button}>
-            <Nav.Link href="/home" style={style.button.navlink}>
+            <Nav.Link href="/NotFound" style={style.button.navlink}>
               Not Found
             </Nav.Link>
           </button>

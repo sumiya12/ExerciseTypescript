@@ -1,15 +1,18 @@
-// import { useEffect, useState } from "react";
 import FetchHook from "../API/FetchHook";
-import Header from "./Header";
-import { User, IsSelectType } from "../types/type";
-import { useEffect, useState } from "react";
-// import { title } from "process";
+import { IsSelectType } from "../types/type";
+import { useState } from "react";
 import moment from "moment";
+import { useUser } from "./myContext";
 
 function Main(): JSX.Element {
   const data = FetchHook("https://randomuser.me/api");
-  //   console.log(data);
-
+  const { users, setUsers } = useUser();
+  // if (users) {
+  //   let a = `${!users && users}`;
+  //   console.log(a);
+  // }
+  // console.log(users && users[0].name);
+  console.log(users);
   const [isSelect, setselect] = useState<IsSelectType>("address");
   const buttons: Array<IsSelectType> = [
     "name",
@@ -25,19 +28,19 @@ function Main(): JSX.Element {
 
   let changed: any;
   let title: string = "";
-  if (isSelect == "name") {
+  if (isSelect === "name") {
     changed = name;
     title = "Hi my name is";
-  } else if (isSelect == "address") {
+  } else if (isSelect === "address") {
     changed = address;
     title = "Hi my address is";
-  } else if (isSelect == "calendar") {
+  } else if (isSelect === "calendar") {
     changed = moment(data?.dob.date).format("YYYY-MM-DD");
     title = "Hi my birthday is";
-  } else if (isSelect == "email") {
+  } else if (isSelect === "email") {
     changed = data?.email;
     title = "Hi my email is";
-  } else if (isSelect == "lock") {
+  } else if (isSelect === "lock") {
     changed = data?.login.password;
     title = "Hi my password is";
   } else {
@@ -78,8 +81,13 @@ function Main(): JSX.Element {
       margin: "auto",
       justifyContent: "center",
     },
-    logoImage: { width: "50px", height: "50px", border: "none" },
-    bordeButton: { border: "none", padding: "10px", margin: "10px" },
+    logoImage: { width: "80px", height: "80px", border: "none" },
+    bordeButton: {
+      border: "none",
+      padding: "10px",
+      margin: "10px",
+      borderRadius: "50%",
+    },
   };
   return (
     <div>

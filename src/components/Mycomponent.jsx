@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function useHover() {
   const [hovering, setHovering] = useState(false);

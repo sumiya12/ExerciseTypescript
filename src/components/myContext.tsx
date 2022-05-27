@@ -1,16 +1,9 @@
-import {
-  createContext,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { User, UserContextType } from "../types/type";
 const intial = {
   users: [],
   setUsers: () => {},
 };
-
 const UserContext = createContext<UserContextType>(intial);
 
 export const useUser: () => UserContextType = () => {
@@ -18,15 +11,14 @@ export const useUser: () => UserContextType = () => {
 };
 const UserProvider: any = ({ children }: any) => {
   const [users, setUsers] = useState<User[]>([]);
-  //   console.log([...users]);
 
   useEffect(() => {
-    if (users && !localStorage.getItem("users")) {
-      console.log("set local");
-      localStorage.setItem("users", JSON.stringify(users));
-    }
-  }, [users]);
+    setUsers(JSON.parse(localStorage.getItem("users") || "[]"));
+  }, []);
 
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
   return (
     <UserContext.Provider value={{ users, setUsers }}>
       {children}
